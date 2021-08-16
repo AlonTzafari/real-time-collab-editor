@@ -2,10 +2,25 @@
 
 .menuBar {
   position: fixed;
+  display: flex;
   top: 50px;
   box-sizing: border-box;
   width: 100vw;
+  padding-left: 1em;
+  padding-right: 1em;
   height: $menuBarHeight;
   background-color: white;
   border-bottom: 1px solid $borderColor;
+  align-items: center;
+  .menuBtn {
+    all: unset;
+    color: $btnTextColor;
+    font-family: 'Times New Roman', Times, serif;
+    min-width: 30px;
+    border-right: 1px solid $borderColor;
+    text-align: center;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
