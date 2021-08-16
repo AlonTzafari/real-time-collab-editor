@@ -2,11 +2,27 @@ import './Editor.scss'
 import { schema } from 'prosemirror-schema-basic'
 import { EditorState, Selection } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
-import { undo, redo, history } from 'prosemirror-history'
 import { keymap } from 'prosemirror-keymap'
 import { baseKeymap, toggleMark } from 'prosemirror-commands'
 import { useState, useEffect, useRef, MutableRefObject } from 'react'
 import MenuBar from '../MenuBar'
+
+import * as Y from 'yjs'
+import { WebsocketProvider } from 'y-websocket'
+import {
+  ySyncPlugin,
+  yCursorPlugin,
+  yUndoPlugin,
+  undo,
+  redo,
+} from 'y-prosemirror'
+const ydoc = new Y.Doc()
+const provider = new WebsocketProvider(
+  'ws://localhost:8080',
+  'prosemirror',
+  ydoc,
+)
+const type = ydoc.getXmlFragment('prosemirror')
 
 export default function Editor() {
   const viewHost = useRef() as MutableRefObject<HTMLDivElement>
@@ -17,7 +33,9 @@ export default function Editor() {
     const state = EditorState.create({
       schema,
       plugins: [
-        history(),
+        ySyncPlugin(type),
+        yCursorPlugin(provider.awareness),
+        yUndoPlugin(),
         keymap({ 'mod-z': undo, 'mod-y': redo }),
         keymap(baseKeymap),
       ],
