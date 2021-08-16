@@ -1,6 +1,6 @@
 import './Editor.scss'
 import { schema } from 'prosemirror-schema-basic'
-import { EditorState, Selection, TextSelection } from 'prosemirror-state'
+import { EditorState, Selection } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
 import { undo, redo, history } from 'prosemirror-history'
 import { keymap } from 'prosemirror-keymap'
