@@ -1,0 +1,10 @@
+.editor {
+  .ProseMirror {
+    overflow: hidden;
+    padding-left: 1em;
+    padding-right: 1em;
+    &:focus {
+      outline: unset;
+    }
+  }
+}
