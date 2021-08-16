@@ -1,5 +1,19 @@
-import React from 'react'
+import './MenuBar.scss'
+import { MouseEventHandler } from 'react'
 
-export default function MenuBar() {
-  return <div style={{ height: 50, borderBottom: '1px solid grey' }}></div>
+interface MenuBarProps {
+  editorActions: { [key: string]: Function }
+}
+
+export default function MenuBar({ editorActions }: MenuBarProps) {
+  const boldHandler: MouseEventHandler = (e) => {
+    editorActions.setBold()
+    e.preventDefault()
+  }
+
+  return (
+    <div className="menuBar">
+      <button onClick={boldHandler}>B</button>
+    </div>
+  )
 }

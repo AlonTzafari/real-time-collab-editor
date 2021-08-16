@@ -1,18 +1,5 @@
-import React from 'react'
+import './Header.scss'
 
 export default function Header() {
-  return (
-    <header
-      style={{
-        height: 50,
-        display: 'grid',
-        width: '100vw',
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        boxSizing: 'border-box',
-        borderBottom: '1px solid grey',
-      }}
-    ></header>
-  )
+  return <header className="header"></header>
 }

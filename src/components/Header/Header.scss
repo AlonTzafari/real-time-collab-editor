@@ -1,0 +1,12 @@
+@import '../../styles/constants.scss';
+
+.header {
+  height: $headerHeight;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  border-bottom: 1px solid $borderColor;
+  background-color: white;
+}

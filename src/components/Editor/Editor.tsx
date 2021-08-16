@@ -10,10 +10,9 @@ import MenuBar from '../MenuBar'
 
 export default function Editor() {
   const viewHost = useRef() as MutableRefObject<HTMLDivElement>
-  const view = useRef() as MutableRefObject<EditorView>
+  const viewRef = useRef() as MutableRefObject<EditorView>
 
   useEffect(() => {
-    // initial render
     const state = EditorState.create({
       schema,
       plugins: [
@@ -22,26 +21,37 @@ export default function Editor() {
         keymap(baseKeymap),
       ],
     })
-    view.current = new EditorView(viewHost.current, { state })
-    view.current.focus()
-    view.current.dispatch(view.current.state.tr.insertText('Hello World'))
-    view.current.dispatch(
-      view.current.state.tr.setSelection(
-        TextSelection.atEnd(view.current.state.doc),
-      ),
+    viewRef.current = new EditorView(viewHost.current, { state })
+    const { current: view } = viewRef
+    view.focus()
+    view.dispatch(view.state.tr.insertText('Hello World'))
+    view.dispatch(
+      view.state.tr.setSelection(TextSelection.atEnd(view.state.doc)),
     )
-    return () => view.current!.destroy()
+    return () => view.destroy()
   }, [])
 
-  //   useEffect(() => {
-  //     // every render
-  //     const tr = view.current.state.tr.setMeta(reactPropsKey, props)
-  //     view.current.dispatch(tr)
-  //   })
+  const editorActions = {
+    setBold() {
+      const { current: view } = viewRef
+      view.focus()
+      const { state } = view
+      const isBold = state.doc
+        .nodeAt(state.selection.$from.pos)
+        ?.marks.some((mark) => mark.type.name === 'strong')
+      view.dispatch(
+        state.tr[isBold ? 'removeMark' : 'addMark'](
+          state.selection.$from.pos,
+          state.selection.$to.pos,
+          schema.mark('strong'),
+        ),
+      )
+    },
+  }
 
   return (
     <>
-      <MenuBar />
+      <MenuBar editorActions={editorActions} />
       <div className="editor" ref={viewHost}></div>
     </>
   )

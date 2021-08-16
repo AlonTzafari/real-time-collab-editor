@@ -1,0 +1,7 @@
+@import './styles/constants.scss';
+
+.App {
+  padding-top: $appHeaderPadding;
+  background-color: $backgroundColor;
+  min-height: 100vh;
+}

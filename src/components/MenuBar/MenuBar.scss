@@ -1,0 +1,11 @@
+@import '../../styles/constants.scss';
+
+.menuBar {
+  position: fixed;
+  top: 50px;
+  box-sizing: border-box;
+  width: 100vw;
+  height: $menuBarHeight;
+  background-color: white;
+  border-bottom: 1px solid $borderColor;
+}
