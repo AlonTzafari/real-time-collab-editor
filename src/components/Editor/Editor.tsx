@@ -1,10 +1,12 @@
 import './Editor.scss'
-import { schema } from 'prosemirror-schema-basic'
+import schema from '../../prosemirror/schema' //'prosemirror-schema-basic'
 import { EditorState } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
 import { keymap } from 'prosemirror-keymap'
-import { baseKeymap, toggleMark } from 'prosemirror-commands'
+import { baseKeymap, toggleMark, setBlockType } from 'prosemirror-commands'
 import { useEffect, useRef, MutableRefObject, useContext } from 'react'
+import { addComment } from '../../prosemirror/plugins/comments'
+
 import MenuBar from '../MenuBar'
 import {
   ySyncPlugin,
@@ -14,6 +16,7 @@ import {
   redo,
 } from 'y-prosemirror'
 import yContext from '../../contexts/yContext'
+import CommentView from '../../prosemirror/nodeViews/CommentView'
 
 export default function Editor() {
   const viewHost = useRef() as MutableRefObject<HTMLDivElement>
@@ -31,7 +34,15 @@ export default function Editor() {
         keymap(baseKeymap),
       ],
     })
-    viewRef.current = new EditorView(viewHost.current, { state })
+    viewRef.current = new EditorView(viewHost.current, {
+      state,
+      //   nodeViews: {
+      //     //@ts-ignore
+      //     comment(node, view, getPos) {
+      //       return new CommentView(node, view, getPos)
+      //     },
+      //   },
+    })
     const { current: view } = viewRef
     view.focus()
     return () => view.destroy()
@@ -39,10 +50,24 @@ export default function Editor() {
   }, [])
 
   const editorActions = {
-    setMark(mark: string) {
+    setMark(mark: string, attrs?: { [key: string]: any }) {
       const { current: view } = viewRef
       view.focus()
-      toggleMark(schema.marks[mark])(view.state, view.dispatch)
+      toggleMark(schema.marks[mark], attrs)(view.state, view.dispatch)
+    },
+    setBlock(node: string) {
+      const { current: view } = viewRef
+      view.focus()
+      setBlockType(schema.nodes[node])(view.state, view.dispatch)
+    },
+    setComment() {
+      const { current: view } = viewRef
+      view.focus()
+      const user = {
+        id: yProvider.awareness.clientID,
+        color: yProvider.awareness.getLocalState()!.user.color,
+      }
+      addComment(user, view)
     },
   }
 

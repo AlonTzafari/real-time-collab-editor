@@ -1,0 +1,22 @@
+span.comment {
+  border-style: dashed;
+  border-width: 3px;
+  &.cff0000 {
+    border-color: #ff0000;
+  }
+  &.c0000ff {
+    border-color: #0000ff;
+  }
+  &.c008000 {
+    border-color: #008000;
+  }
+  &.cffff00 {
+    border-color: #ffff00;
+  }
+  &.cee82ee {
+    border-color: #ee82ee;
+  }
+  &.c008833 {
+    border-color: #008833;
+  }
+}

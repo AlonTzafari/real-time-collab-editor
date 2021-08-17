@@ -9,7 +9,6 @@ export default function Header() {
 
   useEffect(() => {
     const changeListener = (changes: any) => {
-      console.log(changes)
       const newUsers = Array.from(yProvider.awareness.getStates()).map(
         ([id, content]) => Object.assign(content.user, { id }),
       )

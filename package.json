@@ -54,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "@types/orderedmap": "^1.0.0",
     "@types/prosemirror-commands": "^1.0.4",
     "@types/prosemirror-history": "^1.0.3",
     "@types/prosemirror-keymap": "^1.0.4",
