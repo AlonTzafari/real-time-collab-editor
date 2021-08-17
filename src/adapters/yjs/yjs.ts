@@ -8,6 +8,3 @@ export const yProvider = new WebsocketProvider(
   yDoc,
 )
 export const yType = yDoc.getXmlFragment('prosemirror')
-
-// export const useUsers = () => {
-// }

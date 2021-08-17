@@ -4,7 +4,7 @@ import { EditorState } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
 import { keymap } from 'prosemirror-keymap'
 import { baseKeymap, toggleMark } from 'prosemirror-commands'
-import { useEffect, useRef, MutableRefObject, useContext } from 'react'
+import { useEffect, useRef, MutableRefObject } from 'react'
 import MenuBar from '../MenuBar'
 import {
   ySyncPlugin,
@@ -13,12 +13,13 @@ import {
   undo,
   redo,
 } from 'y-prosemirror'
-import yContext from '../../contexts/yContext'
+import { yType } from '../../adapters/yjs'
+import { WebsocketProvider } from 'y-websocket'
 
 export default function Editor() {
+  const yProvider = (window as any).yProvider as WebsocketProvider
   const viewHost = useRef() as MutableRefObject<HTMLDivElement>
   const viewRef = useRef() as MutableRefObject<EditorView>
-  const { yProvider, yType } = useContext(yContext)
 
   useEffect(() => {
     const state = EditorState.create({

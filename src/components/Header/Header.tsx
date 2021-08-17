@@ -1,11 +1,11 @@
 import './Header.scss'
-import { useState, useEffect, useContext } from 'react'
-import yContext from '../../contexts/yContext'
+import { useState, useEffect } from 'react'
 import UserAvatar from '../UserAvatar'
+import { WebsocketProvider } from 'y-websocket'
 
 export default function Header() {
   const [users, setUsers] = useState([] as { [key: string]: any }[])
-  const { yProvider } = useContext(yContext)
+  const yProvider = (window as any).yProvider as WebsocketProvider
 
   useEffect(() => {
     const changeListener = (changes: any) => {

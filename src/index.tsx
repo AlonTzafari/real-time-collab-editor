@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
+import { yProvider, yInit } from './adapters/yjs'
+;(window as any).yProvider = yProvider
+yInit(yProvider)
 
 ReactDOM.render(
   <React.StrictMode>
