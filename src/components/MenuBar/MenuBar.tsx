@@ -1,22 +1,13 @@
 import './MenuBar.scss'
-import { MouseEventHandler } from 'react'
-import { Selection } from 'prosemirror-state'
+import { MouseEventHandler, MutableRefObject } from 'react'
+import { EditorView } from 'prosemirror-view'
 
 interface MenuBarProps {
   editorActions: { [key: string]: Function }
-  selection: null | Selection<any>
+  view: MutableRefObject<EditorView>
 }
 
-export default function MenuBar({ editorActions, selection }: MenuBarProps) {
-  //   useEffect(() => {
-  //     console.log(
-  //       selection === null
-  //         ? 'no selection'
-  //         : selection.empty
-  //         ? 'nothing selected'
-  //         : 'content selected',
-  //     )
-  //   }, [selection])
+export default function MenuBar({ editorActions, view }: MenuBarProps) {
   const boldHandler: MouseEventHandler = (e) => {
     editorActions.setMark('strong')
     e.preventDefault()

@@ -1,6 +1,8 @@
 @import '../../styles/constants.scss';
 
 .header {
+  display: flex;
+  align-items: center;
   height: $headerHeight;
   width: 100vw;
   position: fixed;
