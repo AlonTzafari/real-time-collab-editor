@@ -3,7 +3,7 @@
 .menuBar {
   position: fixed;
   display: flex;
-  top: 50px;
+  top: $headerHeight;
   box-sizing: border-box;
   width: 100vw;
   padding-left: 1em;

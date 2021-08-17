@@ -1,6 +1,13 @@
+@import '../../styles/constants.scss';
+
 .userAvatar {
-  height: 30px;
-  border-radius: 15px;
-  margin-left: 1em;
-  margin-right: 1em;
+  box-sizing: border-box;
+  height: 50px;
+  width: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: 3px solid black;
+  border-radius: 25px;
+  margin-left: 5px;
+  line-height: 50px;
 }
