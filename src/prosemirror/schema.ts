@@ -2,12 +2,15 @@ import { schema as basicSchema } from 'prosemirror-schema-basic'
 import { Schema, NodeSpec, MarkSpec } from 'prosemirror-model'
 import OrderedMap from 'orderedmap'
 import commentNodeSpec from './nodes/commentNode'
-import commentMarkSpec from './marks/commentMark'
+import highlightMarkSpec from './marks/highlightMark'
 
 const basicNodes = basicSchema.spec.nodes as OrderedMap<NodeSpec>
-const nodes = basicNodes //.append({ comment: commentNodeSpec })
 const basicMarks = basicSchema.spec.marks as OrderedMap<MarkSpec>
-const marks = basicMarks.append({ comment: commentMarkSpec })
+const nodes = basicNodes
+const marks = basicMarks.append({
+  highlight: highlightMarkSpec,
+  comment: commentNodeSpec,
+})
 
 const schema = new Schema({
   nodes,

@@ -1,14 +1,20 @@
 import './MenuBar.scss'
-import { MouseEventHandler, MutableRefObject, useContext } from 'react'
+import {
+  MouseEventHandler,
+  MutableRefObject,
+  useContext,
+  useState,
+} from 'react'
 import { EditorView } from 'prosemirror-view'
 import yContext from '../../contexts/yContext'
+import { v4 as uuidv4 } from 'uuid'
 
 interface MenuBarProps {
   editorActions: { [key: string]: Function }
   view: MutableRefObject<EditorView>
 }
-
 export default function MenuBar({ editorActions, view }: MenuBarProps) {
+  const [highlightColor, setHighlightColor] = useState('#ffff00')
   const { yProvider } = useContext(yContext)
   const boldHandler: MouseEventHandler = (e) => {
     editorActions.setMark('strong')
@@ -27,10 +33,16 @@ export default function MenuBar({ editorActions, view }: MenuBarProps) {
     e.preventDefault()
   }
   const commentHandler: MouseEventHandler = (e) => {
-    console.log(yProvider.awareness.getLocalState()!.user.color)
-
+    const user = yProvider.awareness.getLocalState()!.user
     editorActions.setMark('comment', {
-      color: yProvider.awareness.getLocalState()!.user.color,
+      id: uuidv4(),
+      user,
+    })
+    e.preventDefault()
+  }
+  const highlightHandler: MouseEventHandler = (e) => {
+    editorActions.setMark('highlight', {
+      color: highlightColor,
     })
     e.preventDefault()
   }
@@ -38,6 +50,7 @@ export default function MenuBar({ editorActions, view }: MenuBarProps) {
   return (
     <div className="menuBar">
       <button
+        title="Bold"
         style={{ fontWeight: 'bold' }}
         className="menuBtn"
         onClick={boldHandler}
@@ -45,20 +58,24 @@ export default function MenuBar({ editorActions, view }: MenuBarProps) {
         B
       </button>
       <button
+        title="Italic"
         style={{ fontStyle: 'italic' }}
         className="menuBtn"
         onClick={italicHandler}
       >
         I
       </button>
-      <button className="menuBtn" onClick={paragraphHandler}>
+      <button title="Paragraph" className="menuBtn" onClick={paragraphHandler}>
         P
       </button>
-      <button className="menuBtn" onClick={headingHandler}>
+      <button title="Header" className="menuBtn" onClick={headingHandler}>
         H
       </button>
-      <button className="menuBtn" onClick={commentHandler}>
-        c+
+      <button title="Marker" className="menuBtn" onClick={highlightHandler}>
+        🖌
+      </button>
+      <button title="Comment" className="menuBtn" onClick={commentHandler}>
+        💬
       </button>
     </div>
   )

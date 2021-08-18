@@ -12,6 +12,7 @@
   background-color: white;
   border-bottom: 1px solid $borderColor;
   align-items: center;
+  z-index: 1000;
   .menuBtn {
     all: unset;
     color: $btnTextColor;

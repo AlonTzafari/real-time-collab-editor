@@ -1,10 +1,10 @@
-import { NodeSpec } from 'prosemirror-model'
-const commentNodeSpec: NodeSpec = {
-  group: 'inline',
-  content: 'inline* text*',
-  inline: true,
-  selectable: true,
-  toDOM: () => ['span.comment', 0],
+import { MarkSpec } from 'prosemirror-model'
+const commentNodeSpec: MarkSpec = {
+  content: 'text*',
+  attrs: {
+    id: { default: 0 },
+    user: { default: { id: 0, color: '#FFF' } },
+  },
   parseDOM: [{ tag: 'span.comment' }],
 }
 export default commentNodeSpec
