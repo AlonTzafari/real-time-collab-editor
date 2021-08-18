@@ -36,7 +36,8 @@ export default function Editor() {
   const [comments, setComments] = useState([] as ReactPortal[])
 
   const addComment = (comment: ReactPortal) => {
-    setComments([...comments, comment])
+    comments.push(comment)
+    setComments([...comments])
   }
 
   useEffect(() => {
@@ -55,7 +56,13 @@ export default function Editor() {
       state,
       nodeViews: {
         comment(node, view, getPos) {
-          return new CommentView(node, view, getPos, addComment).init()
+          return new CommentView(
+            node,
+            view,
+            getPos,
+            addComment,
+            viewHost,
+          ).init()
         },
       },
     })
@@ -64,6 +71,10 @@ export default function Editor() {
     return () => view.destroy()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    console.log(comments)
+  }, [comments])
 
   const editorActions = {
     setMark(mark: string, attrs?: { [key: string]: any }) {

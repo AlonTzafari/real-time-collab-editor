@@ -34,9 +34,11 @@ export default function MenuBar({ editorActions, view }: MenuBarProps) {
   }
   const commentHandler: MouseEventHandler = (e) => {
     const user = yProvider.awareness.getLocalState()!.user
+    const text = prompt('Write Comment')
     editorActions.setMark('comment', {
       id: uuidv4(),
       user,
+      text,
     })
     e.preventDefault()
   }

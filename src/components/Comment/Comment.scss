@@ -1,7 +1,15 @@
 .comment-anchor {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .commentCard {
-  width: 100px;
-  height: 100px;
-  border: 5px solid black;
+  position: absolute;
+  box-sizing: border-box;
+  width: 200px;
+  min-height: 40px;
+  border: 2px solid;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.253);
 }

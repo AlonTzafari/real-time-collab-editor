@@ -4,6 +4,7 @@ const commentNodeSpec: MarkSpec = {
   attrs: {
     id: { default: 0 },
     user: { default: { id: 0, color: '#FFF' } },
+    text: { default: '' },
   },
   parseDOM: [{ tag: 'span.comment' }],
 }
