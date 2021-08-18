@@ -1,5 +1,5 @@
 import './Editor.scss'
-import schema from '../../prosemirror/schema' //'prosemirror-schema-basic'
+import schema from '../../prosemirror/schema'
 import { EditorState } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
 import { keymap } from 'prosemirror-keymap'
@@ -9,7 +9,7 @@ import {
   setBlockType,
   wrapIn,
 } from 'prosemirror-commands'
-import React, {
+import {
   useEffect,
   useRef,
   MutableRefObject,
