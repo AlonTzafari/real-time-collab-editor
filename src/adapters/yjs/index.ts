@@ -1,3 +1,3 @@
-import { yProvider, yType } from './yjs'
+import { yProvider, yType, yDoc } from './yjs'
 
-export { yProvider, yType }
+export { yProvider, yType, yDoc }

@@ -10,40 +10,37 @@ import yContext from '../../contexts/yContext'
 import { v4 as uuidv4 } from 'uuid'
 
 interface MenuBarProps {
-  editorActions: { [key: string]: Function }
+  editorActions: MutableRefObject<{ [key: string]: (...args: any[]) => any }>
   view: MutableRefObject<EditorView>
 }
 export default function MenuBar({ editorActions, view }: MenuBarProps) {
   const [highlightColor, setHighlightColor] = useState('#ffff00') // TODO: Add marker color selector
   const { yProvider } = useContext(yContext)
   const boldHandler: MouseEventHandler = (e) => {
-    editorActions.setMark('strong')
+    editorActions.current.setMark('strong')
     e.preventDefault()
   }
   const italicHandler: MouseEventHandler = (e) => {
-    editorActions.setMark('em')
+    editorActions.current.setMark('em')
     e.preventDefault()
   }
   const paragraphHandler: MouseEventHandler = (e) => {
-    editorActions.setBlock('paragraph')
+    editorActions.current.setBlock('paragraph')
     e.preventDefault()
   }
   const headingHandler: MouseEventHandler = (e) => {
-    editorActions.setBlock('heading')
+    editorActions.current.setBlock('heading')
     e.preventDefault()
   }
   const commentHandler: MouseEventHandler = (e) => {
+    const id = uuidv4()
     const user = yProvider.awareness.getLocalState()!.user
     const text = prompt('Write Comment')
-    editorActions.setMark('comment', {
-      id: uuidv4(),
-      user,
-      text,
-    })
+    editorActions.current.comment(id, user, text)
     e.preventDefault()
   }
   const highlightHandler: MouseEventHandler = (e) => {
-    editorActions.setMark('highlight', {
+    editorActions.current.setMark('highlight', {
       color: highlightColor,
     })
     e.preventDefault()
