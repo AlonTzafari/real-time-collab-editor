@@ -63,6 +63,7 @@ export default class CommentsState {
     } = relativeComment
     this.map.set(id, relativeComment)
   }
+
   deleteComment(id: string) {
     this.map.delete(id)
   }
@@ -102,7 +103,7 @@ export default class CommentsState {
       decorations.push(deco(comment))
     })
 
-    commentIdsToRemove.forEach((id) => this.map.delete(id))
+    commentIdsToRemove.forEach((id) => this.deleteComment(id))
 
     this.decorations = DecorationSet.create(state.doc, decorations)
     return this.decorations
