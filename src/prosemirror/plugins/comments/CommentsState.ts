@@ -72,8 +72,8 @@ export default class CommentsState {
     const { doc, type, binding } = yState
     const decorations: Decoration[] = []
 
-    //TODO: delete comments whose range was deleted
     if (!binding) return this.decorations
+    const commentIdsToRemove: string[] = []
     this.map.forEach((relativeComment, id) => {
       const from = relativePositionToAbsolutePosition(
         doc,
@@ -91,6 +91,9 @@ export default class CommentsState {
       if (!from || !to) {
         return
       }
+
+      if (to <= from + 1) commentIdsToRemove.push(id)
+
       const comment: EditorComment = {
         from,
         to,
@@ -98,6 +101,8 @@ export default class CommentsState {
       }
       decorations.push(deco(comment))
     })
+
+    commentIdsToRemove.forEach((id) => this.map.delete(id))
 
     this.decorations = DecorationSet.create(state.doc, decorations)
     return this.decorations
