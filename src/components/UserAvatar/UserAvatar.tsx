@@ -8,8 +8,8 @@ interface userAvatarProps {
 
 export default function UserAvatar({ user }: userAvatarProps) {
   return (
-    <div className="userAvatar" style={{ backgroundColor: user.color }}>
-      {user.id.toString()}
+    <div className="userAvatar" style={{ borderColor: user.color }}>
+      {user.name}
     </div>
   )
 }

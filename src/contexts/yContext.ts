@@ -1,7 +1,10 @@
 import { createContext } from 'react'
 import { yProvider, yType } from '../adapters/yjs'
 
-yProvider.awareness.setLocalStateField('user', { color: assignColor() })
+yProvider.awareness.setLocalStateField('user', {
+  color: assignColor(),
+  name: assignName(),
+})
 const yContext = createContext({
   yProvider,
   yType,
@@ -18,13 +21,11 @@ function assignColor(): string {
     '#008833',
   ]
   const randomColor = colors[Math.floor(colors.length * Math.random())]
-  const userColors = Array.from(yProvider.awareness.getStates()).map(
-    ([id, state]) => state.user?.color,
-  )
-  if (userColors.length === 1) return randomColor
-  for (let i = 0; i < colors.length; i++) {
-    if (userColors.includes(colors[i])) continue
-    else return colors[i]
-  }
   return randomColor
+}
+
+function assignName(): string {
+  const names = ['Jhon', 'Roy', 'Raje', 'Olaf', 'Jake', 'Bolt']
+  const randomName = names[Math.floor(names.length * Math.random())]
+  return randomName
 }

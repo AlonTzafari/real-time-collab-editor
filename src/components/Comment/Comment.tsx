@@ -10,10 +10,13 @@ export default function Comment({ parent, comment }: CommentProps) {
 
   useEffect(() => {
     setPosition(getPos())
+
     const resizeListener = (e: UIEvent) => {
       setPosition(getPos())
     }
+
     window.addEventListener('resize', resizeListener)
+
     return () => window.removeEventListener('resize', resizeListener)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

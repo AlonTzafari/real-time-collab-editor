@@ -6,8 +6,11 @@
   width: 50px;
   overflow: hidden;
   text-overflow: ellipsis;
-  border: 3px solid black;
+  border-width: 3.5px;
+  border-style: solid;
   border-radius: 25px;
   margin-left: 5px;
-  line-height: 50px;
+  line-height: 45px;
+  text-align: center;
+  background-color: white;
 }

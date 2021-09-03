@@ -23,8 +23,6 @@ export default function Editor() {
     setComments({ ...comments })
   }
   const removeComment = (id: string) => {
-    console.log('id to remove', id)
-
     delete comments[id]
     setComments({ ...comments })
   }

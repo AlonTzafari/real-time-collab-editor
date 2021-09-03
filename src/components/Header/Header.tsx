@@ -22,7 +22,9 @@ export default function Header() {
   return (
     <header className="header">
       {Array.from(users).map((user) => (
-        <UserAvatar key={user.id} user={user} />
+        <div className="avaterItem">
+          <UserAvatar key={user.id} user={user} />
+        </div>
       ))}
     </header>
   )
