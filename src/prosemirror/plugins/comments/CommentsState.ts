@@ -7,16 +7,8 @@ import {
   absolutePositionToRelativePosition,
 } from 'y-prosemirror'
 import commentsKey from './commentsKey'
-
-function deco(comment: EditorComment) {
-  const { from, to, data } = comment
-  return Decoration.inline(
-    from,
-    to,
-    { class: 'comment', style: `border-color: ${data.user.color}` },
-    { data },
-  )
-}
+import { Node } from 'prosemirror-model'
+import renderComment from './renderComment'
 
 interface RelativeComment {
   from: any
@@ -27,31 +19,49 @@ interface RelativeComment {
     text: string
   }
 }
-
 export default class CommentsState {
   map: YMap<RelativeComment>
   decorations = DecorationSet.empty
-
   constructor(map: YMap<RelativeComment>) {
     this.map = map
   }
 
-  findComment(id: string) {
-    return this.map.get(id)
+  getCommentPos(comment: EditorComment, state: EditorState) {
+    for (let i = 0; i < state.doc.nodeSize; i++) {
+      const node = state.doc.nodeAt(i)
+      if (
+        node &&
+        node.type.name === 'comment' &&
+        node.attrs.id === comment.data.id
+      )
+        return i
+    }
+    return -1
+  }
+
+  findCommentNodes(state: EditorState) {
+    const commentNodes: Node[] = []
+    findInChildren(state.doc)
+    function findInChildren(node: Node) {
+      if (node.type.name === 'comment') commentNodes.push(node)
+      else node.content.forEach((childNode) => findInChildren(childNode))
+    }
+    return commentNodes
   }
 
   addComment(comment: EditorComment, state: EditorState) {
     const yState = ySyncPluginKey.getState(state)
     const { type, binding } = yState
+
     const from = absolutePositionToRelativePosition(
       comment.from,
       type,
-      binding.mapping,
+      binding?.mapping,
     )
     const to = absolutePositionToRelativePosition(
       comment.to,
       type,
-      binding.mapping,
+      binding?.mapping,
     )
     const relativeComment: RelativeComment = {
       from,
@@ -71,16 +81,27 @@ export default class CommentsState {
   createDecorations(state: EditorState) {
     const yState = ySyncPluginKey.getState(state)
     const { doc, type, binding } = yState
-    const decorations: Decoration[] = []
-
     if (!binding) return this.decorations
-    const commentIdsToRemove: string[] = []
-    this.map.forEach((relativeComment, id) => {
+
+    //find all comment nodes in document
+    const commentNodes = this.findCommentNodes(state)
+
+    const decorations: Decoration[] = []
+    commentNodes.forEach((commentNode) => {
+      const comment = JSON.parse(
+        commentNode.attrs['data-comment'],
+      ) as EditorComment
+      const relativeComment = this.map.get(comment.data.id)
+      console.log(relativeComment)
+
+      if (!relativeComment) return
+
+      //get absolute from, to values from shared map
       const from = relativePositionToAbsolutePosition(
         doc,
         type,
         relativeComment.from,
-        binding.mapping,
+        binding?.mapping,
       )
       const to = relativePositionToAbsolutePosition(
         doc,
@@ -92,35 +113,24 @@ export default class CommentsState {
       if (!from || !to) {
         return
       }
+      comment.from = from
+      comment.to = to
 
-      if (to <= from + 1) commentIdsToRemove.push(id)
+      const decoration = renderComment(comment)
 
-      const comment: EditorComment = {
-        from,
-        to,
-        data: relativeComment.data,
-      }
-      decorations.push(deco(comment))
+      decorations.push(decoration)
     })
-
-    commentIdsToRemove.forEach((id) => this.deleteComment(id))
 
     this.decorations = DecorationSet.create(state.doc, decorations)
     return this.decorations
   }
+
   apply(tr: Transaction, state: EditorState) {
     const action = tr.getMeta(commentsKey)
     const actionType = action && action.type
     if (action && actionType) {
       if (actionType === 'newComment') this.addComment(action.comment, state)
       else if (actionType === 'deleteComment') this.deleteComment(action.id)
-      this.createDecorations(state)
-    }
-    const ystate = ySyncPluginKey.getState(state)
-    if (ystate.isChangeOrigin) {
-      this.createDecorations(state)
-
-      return this
     }
     return this
   }

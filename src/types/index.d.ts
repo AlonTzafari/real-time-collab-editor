@@ -13,3 +13,5 @@ interface EditorComment {
     text: string
   }
 }
+
+type PortalsSetter = Dispatch<SetStateAction<ReactPortal[]>>

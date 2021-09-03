@@ -1,18 +1,11 @@
 import './Comment.scss'
-import { useEffect, useState, MutableRefObject } from 'react'
+import { useEffect, useState } from 'react'
 interface CommentProps {
   parent: HTMLElement
-  viewHost: MutableRefObject<HTMLDivElement>
-  user: { id: number; color: string }
-  text: string
+  comment: EditorComment
 }
 
-export default function Comment({
-  parent,
-  viewHost,
-  user,
-  text,
-}: CommentProps) {
+export default function Comment({ parent, comment }: CommentProps) {
   const [position, setPosition] = useState(getPos())
 
   useEffect(() => {
@@ -26,17 +19,13 @@ export default function Comment({
   }, [])
 
   return (
-    <div
-      style={{ ...position, borderColor: user.color }}
-      className="commentCard"
-    >
-      {text}
+    <div style={{ ...position }} className="commentCard">
+      {comment.data.text}
     </div>
   )
 
-  function getPos() {
-    const { top } = parent.getBoundingClientRect()
-    const { left: editorLeft } = viewHost.current.getBoundingClientRect()
-    return { top, left: editorLeft - 210 }
+  function getPos(): {} {
+    const { top, right } = parent.getBoundingClientRect()
+    return { top, left: 1150 }
   }
 }
