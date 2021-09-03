@@ -24,8 +24,15 @@ export default function Comment({ parent, comment }: CommentProps) {
     </div>
   )
 
-  function getPos(): {} {
-    const { top, right } = parent.getBoundingClientRect()
-    return { top, left: 1150 }
+  function getPos(): { top: number; right: number } {
+    try {
+      const { top } = parent.getBoundingClientRect()
+      const { right } = document
+        .querySelector('.editor')!
+        .getBoundingClientRect()
+      return { top, right: right - 990 }
+    } catch (e) {
+      return position || { top: 0, right: 0 }
+    }
   }
 }
