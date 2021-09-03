@@ -19,7 +19,7 @@ export default function Comment({ parent, comment }: CommentProps) {
   }, [])
 
   return (
-    <div style={{ ...position }} className="commentCard">
+    <div style={position} className="commentCard">
       {comment.data.text}
     </div>
   )
