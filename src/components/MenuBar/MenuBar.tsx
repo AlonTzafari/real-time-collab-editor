@@ -80,6 +80,14 @@ export default function MenuBar({ editorActions, view }: MenuBarProps) {
       <button title="Marker" className="menuBtn" onClick={highlightHandler}>
         🖌
       </button>
+      <select
+        onChange={(e) => setHighlightColor(e.target.value)}
+        style={{ backgroundColor: highlightColor }}
+      >
+        <option value="yellow" style={{ backgroundColor: 'yellow' }}></option>
+        <option value="green" style={{ backgroundColor: 'green' }}></option>
+        <option value="cyan" style={{ backgroundColor: 'cyan' }}></option>
+      </select>
       <button title="Comment" className="menuBtn" onClick={commentHandler}>
         💬
       </button>
