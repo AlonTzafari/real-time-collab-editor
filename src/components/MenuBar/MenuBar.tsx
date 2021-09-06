@@ -16,7 +16,7 @@ interface MenuBarProps {
   view: MutableRefObject<EditorView>
 }
 export default function MenuBar({ editorActions, view }: MenuBarProps) {
-  const [highlightColor, setHighlightColor] = useState('#ffff00') // TODO: Add marker color selector
+  const [highlightColor, setHighlightColor] = useState('yellow')
   const [isCommentEditorOpen, setCommentEditor] = useState(false)
   const { yProvider } = useContext(yContext)
   const boldHandler: MouseEventHandler = (e) => {

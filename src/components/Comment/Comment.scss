@@ -36,5 +36,6 @@
   .content {
     grid-area: content;
     justify-items: start;
+    overflow-wrap: break-word;
   }
 }
