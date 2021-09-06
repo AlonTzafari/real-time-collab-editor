@@ -13,6 +13,7 @@ export default class CommentView implements NodeView {
   portal: ReactPortal | undefined
   addComment: (portal: ReactPortal) => void
   removeComment: (id: string) => void
+  getPos: () => number
 
   constructor(
     node: Node,
@@ -25,6 +26,7 @@ export default class CommentView implements NodeView {
     this.view = view
     this.addComment = addComment
     this.removeComment = removeComment
+    this.getPos = getPos as () => number
   }
 
   init() {
@@ -39,8 +41,21 @@ export default class CommentView implements NodeView {
     anchor.id = comment.data.id
     document.body.appendChild(anchor)
     //portal TODO: pass comment destroy command to Comment component
+    const deleteComment = () => {
+      const pos = this.getPos()
+      const state = this.view.state
+      const tr = state.tr
+        .delete(pos, pos + 1)
+        .setMeta(commentsKey, { type: 'deleteComment', id: comment.data.id })
+      this.view.dispatch(tr)
+    }
+
     const portal = createPortal(
-      <Comment parent={this.dom} comment={comment} />,
+      <Comment
+        parent={this.dom}
+        comment={comment}
+        close={deleteComment.bind(this)}
+      />,
       anchor,
       comment.data.id,
     )

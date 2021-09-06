@@ -1,11 +1,14 @@
 import './Comment.scss'
 import { useEffect, useState } from 'react'
+import UserAvatar from '../UserAvatar'
+
 interface CommentProps {
   parent: HTMLElement
   comment: EditorComment
+  close: () => void
 }
 
-export default function Comment({ parent, comment }: CommentProps) {
+export default function Comment({ parent, comment, close }: CommentProps) {
   const [position, setPosition] = useState(getPos())
 
   useEffect(() => {
@@ -23,6 +26,8 @@ export default function Comment({ parent, comment }: CommentProps) {
 
   return (
     <div style={position} className="commentCard">
+      <UserAvatar user={comment.data.user} />
+      <button onClick={() => close()}>X</button>
       {comment.data.text}
     </div>
   )

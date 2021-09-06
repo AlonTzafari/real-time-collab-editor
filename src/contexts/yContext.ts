@@ -13,12 +13,12 @@ export default yContext
 
 function assignColor(): string {
   const colors = [
-    '#ff0000',
-    '#0000ff',
-    '#008000',
-    '#ffff00',
-    '#ee82ee',
-    '#008833',
+    '#b61010',
+    '#0d0dbb',
+    '#096809',
+    '#9b9b08',
+    '#914091',
+    '#9c620b',
   ]
   const randomColor = colors[Math.floor(colors.length * Math.random())]
   return randomColor
