@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/real-time-collab-editor/static/css/main.7642d903.chunk.css",
-    "main.js": "/real-time-collab-editor/static/js/main.b7bb8c52.chunk.js",
-    "main.js.map": "/real-time-collab-editor/static/js/main.b7bb8c52.chunk.js.map",
-    "runtime-main.js": "/real-time-collab-editor/static/js/runtime-main.262f94fa.js",
-    "runtime-main.js.map": "/real-time-collab-editor/static/js/runtime-main.262f94fa.js.map",
+    "main.css": "/real-time-collab-editor/static/css/main.96268063.chunk.css",
+    "main.js": "/real-time-collab-editor/static/js/main.5cd141d7.chunk.js",
+    "main.js.map": "/real-time-collab-editor/static/js/main.5cd141d7.chunk.js.map",
+    "runtime-main.js": "/real-time-collab-editor/static/js/runtime-main.bcc355c6.js",
+    "runtime-main.js.map": "/real-time-collab-editor/static/js/runtime-main.bcc355c6.js.map",
     "static/css/2.867688b0.chunk.css": "/real-time-collab-editor/static/css/2.867688b0.chunk.css",
-    "static/js/2.b05e2a83.chunk.js": "/real-time-collab-editor/static/js/2.b05e2a83.chunk.js",
-    "static/js/2.b05e2a83.chunk.js.map": "/real-time-collab-editor/static/js/2.b05e2a83.chunk.js.map",
-    "static/js/3.c5cedfbe.chunk.js": "/real-time-collab-editor/static/js/3.c5cedfbe.chunk.js",
-    "static/js/3.c5cedfbe.chunk.js.map": "/real-time-collab-editor/static/js/3.c5cedfbe.chunk.js.map",
+    "static/js/2.c6fa309a.chunk.js": "/real-time-collab-editor/static/js/2.c6fa309a.chunk.js",
+    "static/js/2.c6fa309a.chunk.js.map": "/real-time-collab-editor/static/js/2.c6fa309a.chunk.js.map",
+    "static/js/3.b52acc10.chunk.js": "/real-time-collab-editor/static/js/3.b52acc10.chunk.js",
+    "static/js/3.b52acc10.chunk.js.map": "/real-time-collab-editor/static/js/3.b52acc10.chunk.js.map",
     "index.html": "/real-time-collab-editor/index.html",
     "static/css/2.867688b0.chunk.css.map": "/real-time-collab-editor/static/css/2.867688b0.chunk.css.map",
-    "static/css/main.7642d903.chunk.css.map": "/real-time-collab-editor/static/css/main.7642d903.chunk.css.map",
-    "static/js/2.b05e2a83.chunk.js.LICENSE.txt": "/real-time-collab-editor/static/js/2.b05e2a83.chunk.js.LICENSE.txt"
+    "static/css/main.96268063.chunk.css.map": "/real-time-collab-editor/static/css/main.96268063.chunk.css.map",
+    "static/js/2.c6fa309a.chunk.js.LICENSE.txt": "/real-time-collab-editor/static/js/2.c6fa309a.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.262f94fa.js",
+    "static/js/runtime-main.bcc355c6.js",
     "static/css/2.867688b0.chunk.css",
-    "static/js/2.b05e2a83.chunk.js",
-    "static/css/main.7642d903.chunk.css",
-    "static/js/main.b7bb8c52.chunk.js"
+    "static/js/2.c6fa309a.chunk.js",
+    "static/css/main.96268063.chunk.css",
+    "static/js/main.5cd141d7.chunk.js"
   ]
 }
