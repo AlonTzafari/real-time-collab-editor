@@ -1,0 +1,40 @@
+.commentEditorCover {
+  display: grid;
+  place-items: center;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.418);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1001;
+
+  .commentEditor {
+    padding: 15px 20px 15px 20px;
+    border-radius: 5px;
+    background-color: white;
+    display: grid;
+    grid-template-columns: 50px 150px;
+    grid-template-rows: 50px auto;
+    row-gap: 10px;
+    grid-template-areas:
+      'profile .'
+      'form form';
+    align-items: center;
+    justify-content: center;
+    .userAvatar {
+      grid-area: profile;
+    }
+    form {
+      grid-area: form;
+
+      button {
+        all: unset;
+        margin-left: 1em;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

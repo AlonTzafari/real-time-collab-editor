@@ -4,6 +4,7 @@ import commentsKey from './commentsKey'
 export default function addComment(id: string, user: user, text: string) {
   return (view: EditorView) => {
     const { from, to } = view.state.selection
+    if (to <= from || !from || !to) return false
     const data = { id, user, text }
     const comment: EditorComment = { from, to, data }
     //add comment node to doc

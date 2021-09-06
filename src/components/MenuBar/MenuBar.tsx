@@ -8,6 +8,7 @@ import {
 import { EditorView } from 'prosemirror-view'
 import yContext from '../../contexts/yContext'
 import { v4 as uuidv4 } from 'uuid'
+import CommentEditor from '../CommentEditor'
 
 interface MenuBarProps {
   editorActions: MutableRefObject<{ [key: string]: (...args: any[]) => any }>
@@ -15,6 +16,7 @@ interface MenuBarProps {
 }
 export default function MenuBar({ editorActions, view }: MenuBarProps) {
   const [highlightColor, setHighlightColor] = useState('#ffff00') // TODO: Add marker color selector
+  const [isCommentEditorOpen, setCommentEditor] = useState(false)
   const { yProvider } = useContext(yContext)
   const boldHandler: MouseEventHandler = (e) => {
     editorActions.current.setMark('strong')
@@ -33,12 +35,17 @@ export default function MenuBar({ editorActions, view }: MenuBarProps) {
     e.preventDefault()
   }
   const commentHandler: MouseEventHandler = (e) => {
-    const id = uuidv4()
-    const user = yProvider.awareness.getLocalState()!.user
-    const text = prompt('Write Comment')
-    editorActions.current.comment(id, user, text)
+    setCommentEditor(true)
     e.preventDefault()
   }
+
+  const createComment = (text: string) => {
+    const id = uuidv4()
+    const user = yProvider.awareness.getLocalState()!.user
+    editorActions.current.comment(id, user, text)
+    setCommentEditor(false)
+  }
+
   const highlightHandler: MouseEventHandler = (e) => {
     editorActions.current.setMark('highlight', {
       color: highlightColor,
@@ -76,6 +83,7 @@ export default function MenuBar({ editorActions, view }: MenuBarProps) {
       <button title="Comment" className="menuBtn" onClick={commentHandler}>
         💬
       </button>
+      {isCommentEditorOpen && <CommentEditor onClose={createComment} />}
     </div>
   )
 }
