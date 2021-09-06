@@ -1,6 +1,6 @@
 import './CommentEditor.scss'
 import { createPortal } from 'react-dom'
-import { FormEventHandler, useRef, useContext } from 'react'
+import { FormEventHandler, useRef, useContext, useEffect } from 'react'
 import UserAvatar from '../UserAvatar'
 import yContext from '../../contexts/yContext'
 
@@ -11,6 +11,10 @@ interface CommentEditorProps {
 export default function CommentEditor({ onClose }: CommentEditorProps) {
   const textRef = useRef<HTMLInputElement>(null)
   const { yProvider } = useContext(yContext)
+
+  useEffect(() => {
+    textRef.current?.focus()
+  }, [])
 
   const submitHandler: FormEventHandler<HTMLFormElement> = (e) => {
     onClose(textRef.current?.value || '')

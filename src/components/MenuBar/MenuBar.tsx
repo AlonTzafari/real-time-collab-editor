@@ -9,6 +9,7 @@ import { EditorView } from 'prosemirror-view'
 import yContext from '../../contexts/yContext'
 import { v4 as uuidv4 } from 'uuid'
 import CommentEditor from '../CommentEditor'
+import MarkerTooltip from '../MarkerTooltip'
 
 interface MenuBarProps {
   editorActions: MutableRefObject<{ [key: string]: (...args: any[]) => any }>
@@ -77,17 +78,16 @@ export default function MenuBar({ editorActions, view }: MenuBarProps) {
       <button title="Header" className="menuBtn" onClick={headingHandler}>
         H
       </button>
-      <button title="Marker" className="menuBtn" onClick={highlightHandler}>
-        🖌
-      </button>
-      <select
-        onChange={(e) => setHighlightColor(e.target.value)}
-        style={{ backgroundColor: highlightColor }}
-      >
-        <option value="yellow" style={{ backgroundColor: 'yellow' }}></option>
-        <option value="green" style={{ backgroundColor: 'green' }}></option>
-        <option value="cyan" style={{ backgroundColor: 'cyan' }}></option>
-      </select>
+      <div className="menuBtn">
+        <button
+          title="Marker"
+          className="menuBtn noLine"
+          onClick={highlightHandler}
+        >
+          🖌
+        </button>
+        <MarkerTooltip current={highlightColor} onSelect={setHighlightColor} />
+      </div>
       <button title="Comment" className="menuBtn" onClick={commentHandler}>
         💬
       </button>

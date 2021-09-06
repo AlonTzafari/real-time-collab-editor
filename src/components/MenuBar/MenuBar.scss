@@ -19,6 +19,9 @@
     font-family: 'Times New Roman', Times, serif;
     min-width: 30px;
     border-right: 1px solid $borderColor;
+    &.noLine {
+      border-right: unset;
+    }
     text-align: center;
     &:hover {
       cursor: pointer;
