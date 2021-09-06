@@ -22,8 +22,8 @@ export default function Header() {
   return (
     <header className="header">
       {Array.from(users).map((user) => (
-        <div className="avaterItem">
-          <UserAvatar key={user.id} user={user} />
+        <div className="avaterItem" key={user.id}>
+          <UserAvatar user={user} />
         </div>
       ))}
     </header>
