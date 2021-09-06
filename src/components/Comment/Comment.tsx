@@ -27,8 +27,8 @@ export default function Comment({ parent, comment, close }: CommentProps) {
   return (
     <div style={position} className="commentCard">
       <UserAvatar user={comment.data.user} />
-      <button onClick={() => close()}>X</button>
-      {comment.data.text}
+      <button onClick={() => close()}>✖</button>
+      <div className="content">{comment.data.text}</div>
     </div>
   )
 

@@ -92,7 +92,6 @@ export default class CommentsState {
         commentNode.attrs['data-comment'],
       ) as EditorComment
       const relativeComment = this.map.get(comment.data.id)
-      console.log(relativeComment)
 
       if (!relativeComment) return
 

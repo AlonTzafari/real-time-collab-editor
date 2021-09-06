@@ -6,17 +6,35 @@
 }
 .commentCard {
   display: grid;
-  grid-template-columns: 150px 50px;
-  grid-template-rows: 60px auto;
+  grid-template-columns: 50px 135px 15px;
+  grid-template-rows: 15px 35px auto;
   grid-template-areas:
-    'avatar button'
-    'content content';
+    'profile . close'
+    'profile . .'
+    'content content content';
   position: absolute;
-  box-sizing: border-box;
+  box-sizing: content-box;
   width: 200px;
   min-height: 40px;
   border-radius: 4px;
   background-color: white;
   box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.253);
   padding: 4px 4px 4px 4px;
+  .userAvatar {
+    grid-area: profile;
+    place-self: center;
+  }
+  button {
+    all: unset;
+    grid-area: close;
+    place-self: center;
+    color: rgb(104, 104, 104);
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .content {
+    grid-area: content;
+    justify-items: start;
+  }
 }

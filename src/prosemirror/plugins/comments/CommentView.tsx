@@ -40,7 +40,7 @@ export default class CommentView implements NodeView {
     anchor.classList.add('comment-anchor')
     anchor.id = comment.data.id
     document.body.appendChild(anchor)
-    //portal TODO: pass comment destroy command to Comment component
+
     const deleteComment = () => {
       const pos = this.getPos()
       const state = this.view.state

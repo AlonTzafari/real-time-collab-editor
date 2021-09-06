@@ -1,10 +1,19 @@
 import { createContext } from 'react'
 import { yProvider, yType } from '../adapters/yjs'
 
-yProvider.awareness.setLocalStateField('user', {
-  color: assignColor(),
-  name: assignName(),
-})
+const localState = yProvider.awareness.getLocalState()
+if (
+  !localState ||
+  !localState.user ||
+  !localState.user.color ||
+  !localState.user.name
+) {
+  yProvider.awareness.setLocalStateField('user', {
+    color: assignColor(),
+    name: assignName(),
+  })
+}
+
 const yContext = createContext({
   yProvider,
   yType,
